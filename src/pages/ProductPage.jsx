@@ -2,7 +2,6 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { handleError } from "../utils/errorHandler";
 import { Helmet } from "react-helmet-async";
@@ -21,6 +20,8 @@ function ProductPage() {
   const [showReport, setShowReport] = useState(false);
   const [reportDetails, setReportDetails] = useState("");
 const [reportReason, setReportReason] = useState("");
+
+const baseUrl = window.location.origin;
 
  const toggleSave = async () => {
   try {
@@ -117,7 +118,8 @@ const [reportReason, setReportReason] = useState("");
         }
 
       } catch (err) {
-        handleError("Failed to load product", err);
+        // handleError("Failed to load product", err);
+        console.error(err.response?.data || err.message);
       }
 
       setLoading(false);

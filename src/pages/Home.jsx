@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import API from "../utils/api";
 import ProductCard from "../components/ProductCard";
 import CategoryCard from "../components/CategoryCard";
