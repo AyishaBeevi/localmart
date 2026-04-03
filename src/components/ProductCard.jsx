@@ -50,7 +50,7 @@ function ProductCard({
       {/* IMAGE */}
       <div className="relative aspect-square bg-bg overflow-hidden">
         <img
-          src={image || "/placeholder.jpg"}
+          src={image}
           alt={title}
           className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
         />
