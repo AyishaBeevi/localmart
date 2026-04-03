@@ -95,9 +95,7 @@ const [reportReason, setReportReason] = useState("");
 
       try {
 
-        const res = await axios.get(
-          `/products/${slug}`
-        );
+        const res = await API.get(`/products/${slug}`);
 
         setProduct(res.data);
 
@@ -194,7 +192,7 @@ const reportProduct = async () => {
 
   <div className="max-w-7xl mx-auto p-8">
 
-    {/* 🔥 SEO (CLEAN SINGLE BLOCK) */}
+    {/* SEO  */}
     <Helmet>
   <title>
     {`${product.title} in ${product.location} - ₹${product.price} | LocalMart`}
