@@ -1,8 +1,5 @@
-
-
-
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../utils/api";
 import AdminLayout from "../../layout/AdminLayout";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,

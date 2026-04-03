@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../utils/api";
 
 function ProductCard({
   slug,

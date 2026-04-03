@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../utils/api";
 import AdminSidebar from "../../components/AdminSidebar";
 import toast from "react-hot-toast";
 

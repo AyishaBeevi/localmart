@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import socket from "../socket";
 import { useParams, useNavigate } from "react-router-dom";
+import API from "../utils/api";
 
 function Chat() {
 

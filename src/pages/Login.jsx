@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Toaster,toast } from "react-hot-toast";
-
+import API
+ from "../utils/api";
+ 
 function Login() {
 
   const [email, setEmail] = useState("");
@@ -24,8 +26,9 @@ function Login() {
       navigate("/");
 
     } catch (err) {
-      toast.error("Login failed");
-    }
+  console.error(err.response?.data || err.message);
+  toast.error(err.response?.data?.message || "Login failed");
+}
   };
 
   return (

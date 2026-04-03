@@ -5,6 +5,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import toast from "react-hot-toast";
 import { handleError } from "../utils/errorHandler";
 import { Helmet } from "react-helmet-async";
+import API from "../utils/api";
 
 function ProductPage() {
 
