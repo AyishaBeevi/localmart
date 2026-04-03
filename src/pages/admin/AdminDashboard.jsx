@@ -279,7 +279,7 @@ if (subs.length >= 2) {
 
         <div className="bg-[#111827] p-4 rounded-2xl shadow-lg">
           <img
-            src="src/images/analyticspb.png"
+            src="/images/analyticspb.png"
             alt="Power BI Dashboard"
             className="w-full rounded-xl"
           />
