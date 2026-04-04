@@ -114,10 +114,10 @@ const isBlocked = !isAdmin && isExpired;
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/ml/generate`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    title: form.title,
-    category: form.category,
-    condition: form.condition
+ body: JSON.stringify({
+  title: form.title,
+  category: form.category,
+  price: form.price
   })
 });
       const data = await res.json();
