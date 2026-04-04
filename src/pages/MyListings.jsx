@@ -15,15 +15,43 @@ function MyListings() {
     fetchMyProducts();
   }, []);
 
-  const markSold = async (id) => {
+  // const markSold = async (id) => {
+  //   await API.put(`/products/${id}/sold`);
+  //   window.location.reload();
+  // };
+const markSold = async (id) => {
+  try {
     await API.put(`/products/${id}/sold`);
-    window.location.reload();
-  };
+
+    setProducts(prev =>
+      prev.map(p =>
+        p._id === id ? { ...p, status: "sold" } : p
+      )
+    );
+
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+  }
+};
+  // const relist = async (id) => {
+  //   await API.put(`/products/${id}/active`);
+  //   window.location.reload();
+  // };
 
   const relist = async (id) => {
+  try {
     await API.put(`/products/${id}/active`);
-    window.location.reload();
-  };
+
+    setProducts(prev =>
+      prev.map(p =>
+        p._id === id ? { ...p, status: "active" } : p
+      )
+    );
+
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+  }
+};
 
 
 const deleteProduct = async (id) => {
@@ -77,18 +105,18 @@ const deleteProduct = async (id) => {
         <p>No listings yet</p>
       )}
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((p) => {
           const sold = p.status === "sold";
 
           return (
             <div
               key={p._id}
-              className="border rounded-lg overflow-hidden shadow-sm"
+             className="border rounded-xl overflow-hidden shadow-sm bg-white flex flex-col"
             >
               <img
                 src={p.images?.[0]}
-                className="h-40 w-full object-cover"
+                className="h-48 sm:h-40 w-full object-cover"
                 alt="product"
               />
 
@@ -127,7 +155,7 @@ const deleteProduct = async (id) => {
                   </p>
                 )}
 
-                <div className="flex gap-2 mt-3 flex-wrap">
+                <div className="flex flex-wrap gap-2 mt-3">
                   
                   {!sold && (
                     <button

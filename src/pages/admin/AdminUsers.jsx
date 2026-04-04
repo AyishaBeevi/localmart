@@ -32,7 +32,7 @@ function AdminUsers() {
     }
   };
 
-  /* 🔥 BLOCK / UNBLOCK TOGGLE */
+  /*  BLOCK / UNBLOCK TOGGLE */
   const toggleBlockUser = (user) => {
 
     const isBlocked = user.status === "blocked";
@@ -62,8 +62,8 @@ function AdminUsers() {
               try {
 
                 const url = isBlocked
-                  ? `/api/admin/users/${user._id}/unblock`
-                  : `/api/admin/users/${user._id}/block`;
+                  ? `/admin/users/${user._id}/unblock`
+                  : `/admin/users/${user._id}/block`;
 
                 // await axios.put(
                 //   `http://localhost:5000${url}`,

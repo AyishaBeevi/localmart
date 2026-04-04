@@ -27,13 +27,14 @@ import Upgrade from "./pages/Upgrade";
 import Analytics from "./pages/Analytics";
 import EditProduct from "./pages/EditProduct";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import { useLocation } from "react-router-dom";
 
-import { HelmetProvider } from "react-helmet-async";
 
 function App() {
 
   const [keyword, setKeyword] = useState("");
-
+  
   useEffect(() => {
 
     const token = localStorage.getItem("token");
@@ -60,6 +61,7 @@ function App() {
     <Router>
 
       <Navbar keyword={keyword} setKeyword={setKeyword} />
+      <ScrollToTop />
 
       <Routes>
         
@@ -137,7 +139,8 @@ function App() {
 
 <Route path="/analytics" element={<Analytics />} />
       </Routes>
-<Footer />
+
+ <Footer />
     </Router>
   );
 }
