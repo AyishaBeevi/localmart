@@ -111,7 +111,7 @@ const isBlocked = !isAdmin && isExpired;
     try {
       setLoadingAI(true);
 
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/ml/generate`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/ml/generate`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
