@@ -81,8 +81,11 @@ const isBlocked = !isAdmin && isExpired;
 
       await API.post("/products", formData);
 
-      toast.success("Product posted successfully");
-      navigate("/");
+     toast.success("Product posted successfully");
+
+setTimeout(() => {
+  navigate("/");
+}, 1500);
 
     } catch (err) {
 
