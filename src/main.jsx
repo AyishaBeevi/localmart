@@ -5,6 +5,7 @@ import './index.css'
 import { AuthProvider } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import { HelmetProvider } from 'react-helmet-async';
+import toast from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   

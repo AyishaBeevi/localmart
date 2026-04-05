@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import API from "../utils/api";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
-
+import toast from "react-hot-toast";
 export default function CreateProduct() {
 
   const navigate = useNavigate();
