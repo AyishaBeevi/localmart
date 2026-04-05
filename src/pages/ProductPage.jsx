@@ -60,35 +60,39 @@ const baseUrl = window.location.origin;
   
   // START CHAT
   const startChat = async () => {
-    try {
+  try {
+    const token = localStorage.getItem("token");
 
-      const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Login to chat with seller");
 
-      if (!token) {
-        toast.error("Login to chat with seller");
-        return;
-      }
+      setTimeout(() => {
+        navigate("/login");
+      }, 1200);
 
-      const res = await API.post(
-        "/chat/start",
-        {
-          sellerId: product.user._id,
-          slug: product.slug
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      navigate(`/chat/${res.data._id}`);
-
-    } catch (err) {
-     handleError("Chat start error", err);
+      return;
     }
-  };
 
+    const res = await API.post(
+      "/chat/start",
+      {
+        sellerId: product.user._id,
+        slug: product.slug
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    navigate(`/chat/${res.data._id}`);
+
+  } catch (err) {
+    handleError("Chat start error", err);
+    toast.error("Failed to start chat");
+  }
+};
 
   // FETCH PRODUCT
   useEffect(() => {
@@ -229,7 +233,7 @@ const reportProduct = async () => {
       </div>
     </div>
 
-    {/* 🔥 RIGHT - INFO */}
+    {/* RIGHT - INFO */}
     <div className="flex flex-col gap-6">
 
       {/* TITLE */}
