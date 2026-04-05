@@ -10,8 +10,17 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   
   <AuthProvider>
     
-    <Toaster position="top-center"  toastOptions={{
-        duration: 7000 }} reverseOrder={false} />
+   <Toaster
+  position="top-center"
+  reverseOrder={false}
+  toastOptions={{
+    duration: 3000,
+    style: {
+      zIndex: 9999,
+      pointerEvents: "auto",
+    },
+  }}
+/>
         <HelmetProvider><App /></HelmetProvider>
     
   </AuthProvider>

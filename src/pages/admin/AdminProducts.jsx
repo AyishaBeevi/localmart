@@ -89,31 +89,36 @@ function AdminProducts() {
         </button>
 
         <button
-          onClick={async () => {
-            toast.dismiss(t.id);
+  onClick={async () => {
+    toast.dismiss(t.id);
 
-            try {
+    try {
+      const res = await API.delete(
+        `/admin/products/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
 
-              await API.delete(
-                `/admin/products/${id}`,
-                { headers: { Authorization: `Bearer ${token}` } }
-              );
+      console.log("SUCCESS:", res.data);
 
-              setProducts(prev => prev.filter(p => p._id !== id));
+      setProducts(prev => prev.filter(p => p._id !== id));
 
-              toast.success("Product removed");
+      toast.success("Product removed");
 
-            } catch {
+    } catch (err) {
+      console.log("ERROR STATUS:", err.response?.status);
+      console.log("ERROR DATA:", err.response?.data);
 
-              toast.error("Delete failed");
-
-            }
-
-          }}
-          className="px-3 py-1 text-sm bg-red-600 text-white rounded"
-        >
-          Delete
-        </button>
+      toast.error(err.response?.data?.message || "Delete failed");
+    }
+  }}
+  className="px-3 py-1 text-sm bg-red-600 text-white rounded"
+>
+  Delete
+</button>
 
       </div>
 
