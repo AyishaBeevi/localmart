@@ -1,10 +1,45 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand: #4F46E5;
-  --color-bg: #F8FAFC;
-  --color-border: #E2E8F0;
-  --color-textDark: #0F172A;
-  --color-textMuted: #64748B;
-  --color-seller: #10B981;
+ 
+  --color-brand: #6366F1; 
+  --color-brand-dark: #4F46E5;
+
+
+  --color-bg: #F1F5F9; 
+  --color-border: #E5E7EB;
+
+
+  --color-textDark: #0B1220; 
+  --color-textMuted: #6B7280;
+
+  --color-seller: #22C55E;
+
+
+  --color-accent-purple: #8B5CF6;
+  --color-accent-blue: #3B82F6;
+  --color-accent-pink: #EC4899;
+}
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes gradientMove {
+  0% {
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    transform: translate(-48%, 25px) scale(1.05);
+  }
+  100% {
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.animate-gradientMove {
+  animation: gradientMove 14s ease-in-out infinite;
 }

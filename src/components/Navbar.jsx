@@ -157,42 +157,65 @@ function Navbar({ keyword, setKeyword }) {
   };
 
   const Badge = ({ count }) => {
-    if (!count) return null;
+  if (!count) return null;
 
-    return (
-      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">
-        {count > 99 ? "99+" : count}
-      </span>
-    );
-  };
+  return (
+    <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] flex items-center justify-center 
+    text-[10px] font-semibold 
+    bg-gradient-to-r from-red-500 to-pink-500 text-white 
+    rounded-full px-1 shadow-md border border-white dark:border-black">
+      {count > 99 ? "99+" : count}
+    </span>
+  );
+};
+
+
 return (
-  <nav className="sticky top-0 z-50 bg-bg border-b border-border shadow-sm">
+  <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 dark:bg-black/60 border-b border-white/30 dark:border-white/10 shadow-sm">
+
+    {/* 🔥 subtle gradient glow */}
+    <div className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-200/20 via-pink-200/10 to-blue-200/20 dark:from-purple-900/20 dark:via-pink-900/10 dark:to-blue-900/20 blur-2xl" />
 
     <div className="max-w-7xl mx-auto px-6">
 
       <div className="flex items-center justify-between h-16">
 
         {/* LOGO */}
-        <Link to="/" className="text-2xl font-bold tracking-tight text-textDark">
+        <Link
+          to="/"
+          className="text-2xl font-bold tracking-tight 
+          bg-gradient-to-r from-black to-gray-500 
+          dark:from-white dark:to-gray-400 
+          bg-clip-text text-transparent"
+        >
           🧺 LocalMart
         </Link>
 
-        {/* DESKTOP SEARCH */}
+        {/* SEARCH */}
         <div className="hidden md:flex flex-1 max-w-2xl mx-10">
-          <div className="flex w-full items-center bg-white border border-border rounded-full overflow-hidden focus-within:ring-2 focus-within:ring-brand transition">
-            <Search size={18} className="ml-5 text-textMuted" />
+          <div className="flex w-full items-center 
+            backdrop-blur-xl 
+            bg-white/60 dark:bg-white/5 
+            border border-white/30 dark:border-white/10 
+            rounded-full overflow-hidden 
+            focus-within:ring-2 focus-within:ring-purple-400/40 
+            transition">
+
+            <Search size={18} className="ml-5 text-gray-500 dark:text-gray-400" />
 
             <input
               type="text"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               placeholder="Search for products..."
-              className="flex-1 px-4 py-2 bg-transparent outline-none text-sm text-textDark"
+              className="flex-1 px-4 py-2 bg-transparent outline-none text-sm text-black dark:text-white placeholder:text-gray-400"
             />
 
             <button
               onClick={handleSearch}
-              className="bg-brand text-white px-6 py-2 text-sm font-medium"
+              className="px-6 py-2 text-sm font-medium 
+              bg-gradient-to-r from-purple-500 to-blue-500 
+              text-white hover:opacity-90 transition"
             >
               Search
             </button>
@@ -204,10 +227,10 @@ return (
 
           {isLoggedIn ? (
             <>
-              {/* ICON GROUP */}
-              <div className="flex items-center gap-5 text-textMuted">
+              {/* ICONS */}
+              <div className="flex items-center gap-5 text-gray-500 dark:text-gray-400">
 
-                <Link to="/saved" className="hover:text-textDark transition">
+                <Link to="/saved" className="hover:text-black dark:hover:text-white transition">
                   <Heart size={22} />
                 </Link>
 
@@ -215,7 +238,7 @@ return (
                 <div className="relative" ref={notifRef}>
                   <button
                     onClick={() => setNotifOpen(prev => !prev)}
-                    className="hover:text-textDark relative transition"
+                    className="hover:text-black dark:hover:text-white relative transition"
                   >
                     <Bell size={22} />
                     <Badge count={notificationUnread} />
@@ -229,13 +252,13 @@ return (
                 </div>
 
                 {/* CHAT */}
-                <Link to="/chat" className="relative hover:text-textDark transition">
+                <Link to="/chat" className="relative hover:text-black dark:hover:text-white transition">
                   <MessageCircle size={22} />
                   <Badge count={messageUnread} />
                 </Link>
               </div>
 
-              {/* ACTION GROUP */}
+              {/* ACTIONS */}
               <div className="flex items-center gap-3">
 
                 <Link
@@ -246,10 +269,11 @@ return (
                       toast.error("Subscription expired. Renew to sell.");
                     }
                   }}
-                  className={`px-5 py-2 rounded-full text-sm font-semibold transition ${
+                  className={`px-5 py-2 rounded-full text-sm font-semibold transition backdrop-blur
+                  ${
                     isExpired
-                      ? "bg-border text-textMuted cursor-not-allowed"
-                      : "bg-brand text-white hover:opacity-90"
+                      ? "bg-gray-300/50 text-gray-500 cursor-not-allowed"
+                      : "bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:opacity-90"
                   }`}
                 >
                   + Sell
@@ -258,7 +282,7 @@ return (
                 {isSeller && !isExpired && (
                   <Link
                     to="/profile"
-                    className="text-xs bg-seller text-white px-3 py-1 rounded-full font-medium"
+                    className="text-xs bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-3 py-1 rounded-full font-medium"
                   >
                     ⭐ Seller
                   </Link>
@@ -267,7 +291,7 @@ return (
                 {role === "admin" && (
                   <Link
                     to="/admin"
-                    className="text-xs bg-brand text-white px-3 py-1 rounded-full"
+                    className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full"
                   >
                     Admin
                   </Link>
@@ -277,31 +301,39 @@ return (
                 <div className="relative" ref={profileRef}>
                   <button
                     onClick={() => setProfileOpen(prev => !prev)}
-                    className="text-textMuted hover:text-textDark transition"
+                    className="hover:text-black dark:hover:text-white transition"
                   >
                     <User size={24} />
                   </button>
 
                   {profileOpen && (
-                    <div className="absolute right-0 top-14 w-52 bg-white rounded-xl shadow-xl border border-border">
+                    <div className="absolute right-0 mt-3 w-52 z-50 
+  backdrop-blur-xl 
+  bg-gradient-to-b from-white/95 to-white/90 
+  dark:from-black/90 dark:to-black/80
+  text-black dark:text-white
+  rounded-xl 
+  shadow-2xl shadow-black/20 dark:shadow-black/60
+  ring-1 ring-black/5 dark:ring-white/10
+  border border-white/30 dark:border-white/10">
 
-                      <Link to="/profile" className="block px-4 py-3 text-sm hover:bg-bg">
+                      <Link to="/profile" className="block px-4 py-3 text-sm hover:bg-white/20 dark:hover:bg-white/10">
                         Profile
                       </Link>
 
-                      <Link to="/my-listings" className="block px-4 py-3 text-sm hover:bg-bg">
+                      <Link to="/my-listings" className="block px-4 py-3 text-sm hover:bg-white/20 dark:hover:bg-white/10">
                         My Listings
                       </Link>
 
-                      <Link to="/settings" className="block px-4 py-3 text-sm hover:bg-bg">
+                      <Link to="/settings" className="block px-4 py-3 text-sm hover:bg-white/20 dark:hover:bg-white/10">
                         Settings
                       </Link>
 
-                      <div className="border-t border-border"></div>
+                      <div className="border-t border-white/20"></div>
 
                       <button
                         onClick={logout}
-                        className="w-full text-left px-4 py-3 text-sm hover:bg-bg"
+                        className="w-full text-left px-4 py-3 text-sm hover:bg-white/20 dark:hover:bg-white/10"
                       >
                         Logout
                       </button>
@@ -314,13 +346,13 @@ return (
             </>
           ) : (
             <>
-              <Link to="/login" className="text-sm font-medium text-textDark">
+              <Link to="/login" className="text-sm font-medium text-black dark:text-white">
                 Login
               </Link>
 
               <Link
                 to="/register"
-                className="bg-brand text-white px-5 py-2 rounded-full text-sm font-medium"
+                className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-5 py-2 rounded-full text-sm font-medium"
               >
                 Register
               </Link>
@@ -331,20 +363,25 @@ return (
 
       {/* MOBILE SEARCH */}
       <div className="md:hidden pb-4">
-        <div className="flex items-center bg-white border border-border rounded-full overflow-hidden">
-          <Search size={18} className="ml-4 text-textMuted" />
+        <div className="flex items-center 
+          backdrop-blur-xl 
+          bg-white/60 dark:bg-white/5 
+          border border-white/30 dark:border-white/10 
+          rounded-full overflow-hidden">
+
+          <Search size={18} className="ml-4 text-gray-500" />
 
           <input
             type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             placeholder="Search..."
-            className="flex-1 px-3 py-2 bg-transparent outline-none text-sm text-textDark"
+            className="flex-1 px-3 py-2 bg-transparent outline-none text-sm text-black dark:text-white"
           />
 
           <button
             onClick={handleSearch}
-            className="bg-brand text-white px-4 py-2 text-sm"
+            className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-4 py-2 text-sm"
           >
             Go
           </button>
@@ -354,6 +391,5 @@ return (
     </div>
   </nav>
 );
-}
-
-export default Navbar;
+  }
+ export default Navbar;

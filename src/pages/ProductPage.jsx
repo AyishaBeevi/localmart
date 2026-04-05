@@ -192,241 +192,265 @@ const reportProduct = async () => {
 
 };
   return (
+<div className="max-w-7xl mx-auto px-6 py-12">
 
-  <div className="max-w-7xl mx-auto p-8">
+  {/* PRODUCT */}
+  <div className="grid md:grid-cols-2 gap-16">
 
-    {/* SEO  */}
-    <Helmet>
-  <title>
-    {`${product.title} in ${product.location} - ₹${product.price} | LocalMart`}
-  </title>
+    {/* 🔥 LEFT - IMAGE */}
+    <div className="sticky top-24 h-fit">
 
-  <meta
-    name="description"
-    content={product.description?.slice(0, 150)}
-  />
-
-  {/* Canonical */}
-  <link
-    rel="canonical"
-    href={`${baseUrl}/product/${product.slug}`}
-  />
-
-
-      {/* Open Graph */}
-      <meta property="og:title" content={product.title} />
-      <meta property="og:description" content={product.description} />
-      <meta property="og:image" content={product.images?.[0]} />
-      <meta property="og:type" content="product" />
-
-      {/* Structured Data */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org/",
-          "@type": "Product",
-          name: product.title,
-          image: product.images,
-          description: product.description,
-          offers: {
-            "@type": "Offer",
-            price: product.price,
-            priceCurrency: "INR",
-            availability: "https://schema.org/InStock"
-          }
-        })}
-      </script>
-    </Helmet>
-
-    {/* PRODUCT SECTION */}
-    <div className="grid md:grid-cols-2 gap-12">
-
-      {/* IMAGE */}
-      <div>
+      <div className="rounded-3xl overflow-hidden bg-white border border-gray-200 shadow-xl">
         <Zoom>
           {selectedImage && (
             <img
               src={selectedImage}
               alt={product.title}
-              className="w-full h-[450px] object-cover rounded-xl shadow cursor-zoom-in"
+              className="w-full h-[480px] object-cover transition duration-500 hover:scale-105"
             />
           )}
         </Zoom>
-
-        <div className="flex gap-3 mt-4 flex-wrap">
-          {product.images?.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              alt="thumbnail"
-              onClick={() => setSelectedImage(img)}
-              className={`w-20 h-20 object-cover rounded cursor-pointer border ${
-                selectedImage === img
-                  ? "border-black"
-                  : "border-gray-300"
-              }`}
-            />
-          ))}
-        </div>
       </div>
 
-      {/* INFO */}
-      <div className="flex flex-col gap-5">
-
-        <h1 className="text-3xl font-bold">{product.title}</h1>
-
-        <p className="text-3xl text-green-600 font-semibold">
-          ₹{product.price}
-        </p>
-
-        <p className="text-gray-600">{product.description}</p>
-
-        {/* SAVE */}
-        <button
-          onClick={toggleSave}
-          className="border px-5 py-2 rounded-lg w-fit hover:bg-gray-100"
-        >
-          {saved ? "Saved ❤️" : "Save Item ♡"}
-        </button>
-
-        {/* SELLER */}
-        <div className="border rounded-xl p-5 flex justify-between items-center">
-
-          <Link
-            to={`/seller/${product.user?._id}`}
-            className="flex items-center gap-4"
-          >
-            <img
-              src={
-                product.user?.avatar ||
-                `https://ui-avatars.com/api/?name=${product.user?.name}`
-              }
-              className="w-12 h-12 rounded-full object-cover"
-            />
-
-            <div>
-              <p className="font-semibold hover:underline">
-                {product.user?.name}
-              </p>
-              <p className="text-sm text-gray-500">Seller</p>
-            </div>
-          </Link>
-
-          <button
-            onClick={startChat}
-            className="bg-brand text-white px-6 py-2 rounded-lg"
-          >
-            Chat
-          </button>
-        </div>
-
-        {/* DETAILS */}
-        <div className="border rounded-xl p-5">
-
-          <h2 className="font-semibold mb-4">Product Details</h2>
-
-          <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
-            <p>Category</p>
-            <p className="font-medium">{product.category}</p>
-
-            <p>Condition</p>
-            <p className="font-medium">
-              {product.condition || "New"}
-            </p>
-
-            <p>Listed On</p>
-            <p className="font-medium">
-              {new Date(product.createdAt).toDateString()}
-            </p>
-          </div>
-        </div>
-
-        <button
-          onClick={() => setShowReport(true)}
-          className="text-red-500 text-sm"
-        >
-          Report listing
-        </button>
-
+      {/* THUMBNAILS */}
+      <div className="flex gap-3 mt-4 flex-wrap">
+        {product.images?.map((img, i) => (
+          <img
+            key={i}
+            src={img}
+            onClick={() => setSelectedImage(img)}
+            className={`w-20 h-20 rounded-xl object-cover cursor-pointer border transition 
+              ${selectedImage === img
+                ? "border-black scale-105"
+                : "border-gray-200 hover:scale-105"
+              }`}
+          />
+        ))}
       </div>
     </div>
 
-    {/* REPORT MODAL */}
-    {showReport && (
-      <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-        <div className="bg-white p-6 rounded-xl w-[420px]">
+    {/* 🔥 RIGHT - INFO */}
+    <div className="flex flex-col gap-6">
 
-          <h2 className="font-semibold mb-4">Report Listing</h2>
+      {/* TITLE */}
+      <h1 className="text-4xl font-bold leading-tight">
+        {product.title}
+      </h1>
 
-          {["Spam","Scam","Fake listing","Wrong category"].map(r => (
-            <label key={r} className="flex gap-2 text-sm">
-              <input
-                type="radio"
-                value={r}
-                onChange={(e) => setReportReason(e.target.value)}
-              />
-              {r}
-            </label>
-          ))}
+      {/* PRICE */}
+      <div className="text-3xl font-semibold text-green-600">
+        ₹{product.price}
+      </div>
 
-          <textarea
-            value={reportDetails}
-            onChange={(e) => setReportDetails(e.target.value)}
-            className="w-full border mt-3 p-2 rounded"
-            rows={3}
+      {/* DESCRIPTION */}
+      <p className="text-gray-600 leading-relaxed">
+        {product.description}
+      </p>
+
+      {/* ACTIONS */}
+      <div className="flex gap-3">
+
+        <button
+          onClick={toggleSave}
+          className="px-6 py-2 rounded-full border border-gray-300 
+          hover:bg-gray-100 transition"
+        >
+          {saved ? "Saved ❤️" : "Save ♡"}
+        </button>
+
+        <button
+          onClick={startChat}
+          className="px-6 py-2 rounded-full 
+          bg-gradient-to-r from-purple-600 to-blue-500 
+          text-white hover:opacity-90 transition"
+        >
+          Chat with Seller
+        </button>
+
+      </div>
+
+      {/* SELLER CARD */}
+      <div className="backdrop-blur-xl bg-white/70 border border-gray-200 rounded-2xl p-5 shadow-sm flex justify-between items-center">
+
+        <Link
+          to={`/seller/${product.user?._id}`}
+          className="flex items-center gap-4"
+        >
+          <img
+            src={
+              product.user?.avatar ||
+              `https://ui-avatars.com/api/?name=${product.user?.name}`
+            }
+            className="w-14 h-14 rounded-full object-cover"
           />
 
-          <div className="flex justify-end gap-2 mt-4">
-            <button onClick={() => setShowReport(false)}>Cancel</button>
-
-            <button
-              disabled={!reportReason}
-              onClick={reportProduct}
-              className="bg-red-500 text-white px-4 py-2 rounded"
-            >
-              Submit
-            </button>
+          <div>
+            <p className="font-semibold text-lg">
+              {product.user?.name}
+            </p>
+            <p className="text-sm text-gray-500">Verified Seller</p>
           </div>
-        </div>
+        </Link>
+
+        <button
+          onClick={startChat}
+          className="px-5 py-2 rounded-lg bg-black text-white hover:opacity-90"
+        >
+          Message
+        </button>
       </div>
-    )}
 
-    {/* SIMILAR */}
-    {similarProducts.length > 0 && (
-      <div className="mt-16">
+      {/* DETAILS */}
+      <div className="backdrop-blur-xl bg-white/70 border border-gray-200 rounded-2xl p-6 shadow-sm">
 
-        <h2 className="text-2xl font-bold mb-6">
-          Similar Products
+        <h2 className="font-semibold text-lg mb-4">
+          Product Details
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 gap-4 text-sm">
 
-          {similarProducts.slice(0,8).map(item => (
-            <Link
-              key={item._id}
-              to={`/product/${item.slug}`}
-              className="border rounded-xl overflow-hidden"
-            >
-              <img
-                src={item.images?.[0]}
-                className="w-full h-40 object-cover"
-              />
+          <div className="text-gray-500">Category</div>
+          <div className="font-medium">{product.category}</div>
 
-              <div className="p-3">
-                <p className="truncate font-semibold">
-                  {item.title}
-                </p>
-                <p className="text-green-600 font-bold">
-                  ₹{item.price}
-                </p>
-              </div>
-            </Link>
-          ))}
+          <div className="text-gray-500">Condition</div>
+          <div className="font-medium">
+            {product.condition || "New"}
+          </div>
+
+          <div className="text-gray-500">Listed On</div>
+          <div className="font-medium">
+            {new Date(product.createdAt).toDateString()}
+          </div>
 
         </div>
       </div>
-    )}
 
+      {/* REPORT */}
+      <button
+        onClick={() => setShowReport(true)}
+        className="text-red-500 text-sm hover:underline"
+      >
+        Report listing
+      </button>
+      {showReport && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center">
+
+    {/* BACKDROP */}
+    <div
+      className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+      onClick={() => setShowReport(false)}
+    />
+
+    {/* MODAL */}
+    <div className="relative w-[420px] rounded-2xl bg-white shadow-2xl border border-gray-200 p-6">
+
+      {/* TITLE */}
+      <h2 className="text-xl font-semibold mb-4">
+        Report Listing
+      </h2>
+
+      <p className="text-sm text-gray-500 mb-4">
+        Help us keep the platform safe. Select a reason:
+      </p>
+
+      {/* REASONS */}
+      <div className="space-y-2">
+        {["Spam","Scam","Fake listing","Wrong category"].map(r => (
+          <label
+            key={r}
+            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition
+              ${
+                reportReason === r
+                  ? "border-red-500 bg-red-50"
+                  : "border-gray-200 hover:bg-gray-50"
+              }`}
+          >
+            <input
+              type="radio"
+              value={r}
+              checked={reportReason === r}
+              onChange={(e) => setReportReason(e.target.value)}
+              className="accent-red-500"
+            />
+            <span className="text-sm">{r}</span>
+          </label>
+        ))}
+      </div>
+
+      {/* TEXTAREA */}
+      <textarea
+        value={reportDetails}
+        onChange={(e) => setReportDetails(e.target.value)}
+        placeholder="Additional details (optional)"
+        className="w-full mt-4 p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-red-400 text-sm"
+        rows={3}
+      />
+
+      {/* ACTIONS */}
+      <div className="flex justify-end gap-3 mt-5">
+
+        <button
+          onClick={() => setShowReport(false)}
+          className="px-4 py-2 rounded-lg border border-gray-300 text-sm hover:bg-gray-100 transition"
+        >
+          Cancel
+        </button>
+
+        <button
+          disabled={!reportReason}
+          onClick={reportProduct}
+          className="px-4 py-2 rounded-lg text-sm text-white bg-red-500 hover:bg-red-600 disabled:opacity-50 transition"
+        >
+          Submit Report
+        </button>
+
+      </div>
+
+    </div>
   </div>
+)}
+
+    </div>
+  </div>
+
+  {/* 🔥 SIMILAR PRODUCTS */}
+  {similarProducts.length > 0 && (
+    <div className="mt-20">
+
+      <h2 className="text-2xl font-bold mb-8">
+        Similar Products
+      </h2>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+        {similarProducts.slice(0, 8).map(item => (
+          <Link
+            key={item._id}
+            to={`/product/${item.slug}`}
+            className="group rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-lg transition"
+          >
+            <div className="overflow-hidden">
+              <img
+                src={item.images?.[0]}
+                className="w-full h-44 object-cover group-hover:scale-105 transition duration-300"
+              />
+            </div>
+
+            <div className="p-4">
+              <p className="truncate font-semibold">
+                {item.title}
+              </p>
+              <p className="text-green-600 font-bold">
+                ₹{item.price}
+              </p>
+            </div>
+          </Link>
+        ))}
+
+      </div>
+    </div>
+  )}
+</div>
 );
 }
 

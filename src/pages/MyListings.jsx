@@ -96,116 +96,141 @@ const deleteProduct = async (id) => {
 };
 
   return (
-    <div className="p-10">
-      <h2 className="text-3xl font-bold mb-6">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+
+    {/* HEADER */}
+    <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <h2 className="text-3xl font-bold tracking-tight">
         My Listings
       </h2>
 
-      {products.length === 0 && (
-        <p>No listings yet</p>
-      )}
+      <p className="text-sm text-textMuted">
+        Manage your products
+      </p>
+    </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {products.map((p) => {
-          const sold = p.status === "sold";
+    {products.length === 0 && (
+      <div className="text-center py-20 text-textMuted">
+        No listings yet
+      </div>
+    )}
 
-          return (
-            <div
-              key={p._id}
-             className="border rounded-xl overflow-hidden shadow-sm bg-white flex flex-col"
-            >
+    {/* GRID */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      {products.map((p) => {
+        const sold = p.status === "sold";
+
+        return (
+          <div
+            key={p._id}
+            className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
+          >
+
+            {/* IMAGE */}
+            <div className="relative overflow-hidden">
+
               <img
                 src={p.images?.[0]}
-                className="h-48 sm:h-40 w-full object-cover"
+                className="h-52 sm:h-44 w-full object-cover group-hover:scale-105 transition duration-300"
                 alt="product"
               />
 
-              <div className="p-3">
-                <h3 className="font-semibold">
-                  {p.title}
-                </h3>
+              {/* SOLD BADGE */}
+              {sold && (
+                <span className="absolute top-2 left-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
+                  SOLD
+                </span>
+              )}
 
-                <p className="text-green-600 font-bold">
-                  ₹{p.price}
+              {/* APPROVAL BADGE */}
+              <span
+                className={`absolute top-2 right-2 text-[10px] px-2 py-1 rounded font-medium
+                ${
+                  p.approvalStatus === "approved"
+                    ? "bg-green-500/90 text-white"
+                    : p.approvalStatus === "pending"
+                    ? "bg-yellow-400 text-black"
+                    : "bg-red-500 text-white"
+                }`}
+              >
+                {p.approvalStatus}
+              </span>
+
+            </div>
+
+            {/* CONTENT */}
+            <div className="p-4 flex flex-col flex-1">
+
+              <h3 className="font-semibold text-sm line-clamp-1">
+                {p.title}
+              </h3>
+
+              <p className="text-brand font-bold text-lg mt-1">
+                ₹{p.price}
+              </p>
+
+              <p className="text-xs text-textMuted">
+                📍 {p.location}
+              </p>
+
+              {/* REJECTION */}
+              {p.approvalStatus === "rejected" && (
+                <p className="text-xs text-red-500 mt-2">
+                  {p.rejectionReason || "Rejected"}
                 </p>
+              )}
 
-                <p className="text-sm text-textMuted">
-                  {p.location}
-                </p>
+              {/* ACTIONS */}
+              <div className="mt-auto pt-4 flex flex-wrap gap-2">
 
-                
-                <p
-                  className={`text-xs mt-1 ${
-                    p.approvalStatus === "approved"
-                      ? "text-green-600"
-                      : p.approvalStatus === "pending"
-                      ? "text-yellow-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {p.approvalStatus?.toUpperCase()}
-                </p>
-
-               
-                {p.approvalStatus === "rejected" && (
-                  <p className="text-xs text-red-500 mt-1">
-                    Reason:{" "}
-                    {p.rejectionReason ||
-                      "Not specified"}
-                  </p>
+                {!sold && (
+                  <button
+                    onClick={() => markSold(p._id)}
+                    className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white text-xs py-2 rounded-lg transition"
+                  >
+                    Mark Sold
+                  </button>
                 )}
 
-                <div className="flex flex-wrap gap-2 mt-3">
-                  
-                  {!sold && (
-                    <button
-                      onClick={() => markSold(p._id)}
-                      className="bg-yellow-500 text-white px-3 py-1 text-sm rounded"
-                    >
-                      Mark Sold
-                    </button>
-                  )}
+                {sold && (
+                  <button
+                    onClick={() => relist(p._id)}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white text-xs py-2 rounded-lg transition"
+                  >
+                    Relist
+                  </button>
+                )}
 
-                  {sold && (
-                    <button
-                      onClick={() => relist(p._id)}
-                      className="bg-green-600 text-white px-3 py-1 text-sm rounded"
-                    >
-                      Relist
-                    </button>
-                  )}
-
-                  
-                  {p.approvalStatus === "rejected" && (
-                    <button
-                      onClick={() =>
-                        navigate(
-                          `/edit-product/${p.slug}`
-                        )
-                      }
-                      className="bg-blue-500 text-white px-3 py-1 text-sm rounded"
-                    >
-                      Edit & Resubmit
-                    </button>
-                  )}
-
-                  {/* DELETE */}
+                {p.approvalStatus === "rejected" && (
                   <button
                     onClick={() =>
-                      deleteProduct(p._id)
+                      navigate(`/edit-product/${p.slug}`)
                     }
-                    className="bg-red-500 text-white px-3 py-1 text-sm rounded"
+                    className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-xs py-2 rounded-lg transition"
                   >
-                    Delete
+                    Edit
                   </button>
-                </div>
+                )}
+
+                <button
+                  onClick={() => deleteProduct(p._id)}
+                  className="flex-1 bg-red-500 hover:bg-red-600 text-white text-xs py-2 rounded-lg transition"
+                >
+                  Delete
+                </button>
+
               </div>
+
             </div>
-          );
-        })}
-      </div>
+
+          </div>
+        );
+      })}
+
     </div>
-  );
+  </div>
+);
 }
 
 export default MyListings;
