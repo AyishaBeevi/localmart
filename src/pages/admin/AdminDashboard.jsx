@@ -324,7 +324,8 @@
 
 
 import { useState } from "react";
-import AdminLayout from "../../layout/AdminLayout";
+
+import AdminSidebar from "../../components/AdminSidebar";
 
 import useDashboardData from "../../hooks/useDashboardData";
 
