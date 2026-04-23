@@ -322,108 +322,16 @@
 // export default AdminDashboard;
 
 
-// // import { useState } from "react";
-// // import AdminLayout from "../../layout/AdminLayout";
-// // import useDashboardData from "../../hooks/useDashboardData";
-
-// // import StatCard from "../../components/Dashboard/StatCard";
-// // import ChartCard from "../../components/Dashboard/ChartCard";
-// // import FilterBar from "../../components/Dashboard/FilterBar";
-// // import SellerTable from "../../components/Dashboard/SellerTable";
-
-// // function AdminDashboard() {
-// //   const [filters, setFilters] = useState({});
-
-// //   const {
-// //     stats,
-// //     analytics,
-// //     insights,
-// //     loading,
-// //     error,
-// //     refetch
-// //   } = useDashboardData(filters);
-
-// //   const [drillData, setDrillData] = useState(null);
-
-// //   if (loading) return <p>Loading dashboard...</p>;
-
-// //   if (error) {
-// //     return (
-// //       <div>
-// //         <p>Error loading dashboard</p>
-// //         <button onClick={refetch}>Retry</button>
-// //       </div>
-// //     );
-// //   }
-
-// //   return (
-// //     <AdminLayout>
-
-// //       <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
-
-// //       <FilterBar onChange={setFilters} />
-
-// //       {/* STATS */}
-// //       <div className="grid grid-cols-6 gap-5">
-// //         <StatCard title="Users" value={stats.users} />
-// //         <StatCard title="Revenue" value={`₹${stats.totalRevenue}`} />
-// //         <StatCard title="Products" value={stats.products} />
-// //       </div>
-
-// //       {/* SELLERS */}
-// //       <div className="mt-10">
-// //         <SellerTable sellers={stats.recentSellers} />
-// //       </div>
-
-// //       {/* CHARTS */}
-// //       <div className="grid lg:grid-cols-2 gap-6 mt-10">
-// //         <ChartCard
-// //           title="Products by Category"
-// //           data={analytics.productsByCategory}
-// //           onClick={(e) => setDrillData(e?.activePayload?.[0]?.payload)}
-// //         />
-
-// //         <ChartCard
-// //           title="Daily Trend"
-// //           data={analytics.productsPerDay}
-// //           type="line"
-// //           onClick={(e) => setDrillData(e?.activePayload?.[0]?.payload)}
-// //         />
-// //       </div>
-
-// //       {/* DRILL DOWN */}
-// //       {drillData && (
-// //         <div className="mt-6 p-4 bg-white border rounded-xl">
-// //           <h3 className="font-semibold">Drill Data</h3>
-// //           <pre>{JSON.stringify(drillData, null, 2)}</pre>
-// //         </div>
-// //       )}
-
-// //       {/* INSIGHTS */}
-// //       <div className="mt-10 bg-white border p-5 rounded-xl">
-// //         <h3 className="font-semibold mb-3">Insights</h3>
-
-// //         {insights.map((i, idx) => (
-// //           <p key={idx}>• {i}</p>
-// //         ))}
-// //       </div>
-
-// //     </AdminLayout>
-// //   );
-// // }
-
-// // export default AdminDashboard;
-
 
 import { useState } from "react";
 import AdminLayout from "../../layout/AdminLayout";
 
 import useDashboardData from "../../hooks/useDashboardData";
 
-import StatCard from "../../components/dashboard/StatCard";
-import ChartCard from "../../components/dashboard/ChartCard";
-import FilterBar from "../../components/dashboard/FilterBar";
-import SellerTable from "../../components/dashboard/SellerTable";
+import StatCard from "../../components/Dashboard/StatCard";
+import ChartCard from "../../components/Dshboard/ChartCard";
+import FilterBar from "../../components/Dashboard/FilterBar";
+import SellerTable from "../../components/Dashboard/SellerTable";
 
 import { calcGrowth } from "../../utils/formatters";
 
