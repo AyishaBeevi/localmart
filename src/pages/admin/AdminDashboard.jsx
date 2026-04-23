@@ -330,7 +330,7 @@ import AdminSidebar from "../../components/AdminSidebar";
 import useDashboardData from "../../hooks/useDashboardData";
 
 import StatCard from "../../components/Dashboard/StatCard";
-import ChartCard from "../../components/Dshboard/ChartCard";
+import ChartCard from "../../components/Dashboard/ChartCard";
 import FilterBar from "../../components/Dashboard/FilterBar";
 import SellerTable from "../../components/Dashboard/SellerTable";
 
